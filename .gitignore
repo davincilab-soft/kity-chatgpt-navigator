@@ -10,3 +10,6 @@ frontend/dist/
 backend/data/users.json
 *.log
 .DS_Store
+.claude/
+run_back_front.txt
+tmp.txt
