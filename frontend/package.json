@@ -1,0 +1,18 @@
+{
+  "name": "kity-br",
+  "version": "1.0.0",
+  "description": "Site-aware keyboard navigator for modern web applications",
+  "scripts": {
+    "build": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "clean": "rimraf dist"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.270",
+    "esbuild": "^0.27.0",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.5.0"
+  },
+  "license": "MIT",
+  "dependencies": {}
+}

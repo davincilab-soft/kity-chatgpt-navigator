@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="popup/popup.css">
+  <title>Kity Popup</title>
+</head>
+<body>
+  <div id="kity-popup">
+    <header class="popup-header">
+      <div class="brand">
+        <div class="brand__logo">
+          <img src="../../icons/Icon32px.png" alt="Kity logo" id="brand-logo" />
+        </div>
+        <div class="brand__name" id="brand-name">Kity</div>
+        <div class="brand__tagline">Smart Navigator for ChatGPT</div>
+      </div>
+    </header>
+
+    <div id="popup-body" class="popup-body">
+      <section class="promo" id="paid-promo">
+        <div class="promo__badge"></div>
+        <div class="promo__title" id="paid-promo-title">
+          You're all set. Enjoy ChatGPT with Kity!
+        </div>
+        <ul class="promo__guidance-list">
+          <li>Toggle Pane Focus: <span class="promo__shortcut-key">Ctrl+Right</span> / <span class="promo__shortcut-key">Ctrl+Left</span></li>
+          <li>Smooth Scrolling: <span class="promo__shortcut-key">Ctrl+Up</span> / <span class="promo__shortcut-key">Ctrl+Down</span></li>
+          <li>Intelligent Copy: <span class="promo__shortcut-key">Ctrl+C</span></li>
+          <li>User's Requests Navigation: <span class="promo__shortcut-key">Ctrl+Shift+Up</span> / <span class="promo__shortcut-key">Ctrl+Shift+Down</span></li>
+          <li>Jump to first/last message: <span class="promo__shortcut-key">Ctrl+A</span> / <span class="promo__shortcut-key">Ctrl+Z</span></li>
+          <li>Open folder/chats: <span class="promo__shortcut-key">Ctrl+Enter</span></li>
+        </ul>
+      </section>
+
+      <section class="support-card">
+        <div class="support-card__copy">
+          <div class="support-card__title">Kity is fully free to use. Enjoying Kity?</div>
+          <div class="support-card__subtitle">Send a coffee to support development.</div>
+        </div>
+        <button id="support-btn" class="primary-button" type="button">Support Us</button>
+      </section>
+
+      <section class="decor-card" id="decor-card">
+        <div class="decor-card__info">
+          <div class="decor-card__title">Christmas Theme for ChatGPT &#127794;&#127794;&#127794;</div>
+        </div>
+        <label class="toggle-control">
+          <input type="checkbox" id="decor-toggle" />
+          <span class="toggle-slider decor-toggle-slider">
+            <span class="toggle-slider__state toggle-slider__state--on">ON</span>
+            <span class="toggle-slider__state toggle-slider__state--off">OFF</span>
+          </span>
+        </label>
+      </section>
+
+      <section class="extras">
+        <div class="bottom-links">
+          <a href="https://kity.software/" target="_blank" rel="noopener noreferrer">Home</a>
+          <a href="https://docs.google.com/forms/d/1lpUMb6RSXNzMh22KM_CP-DOPA-peG-lLYcwOo79tD38/preview" target="_blank" rel="noopener noreferrer">Feedback</a>
+          <a href="https://kity.software/" target="_blank" rel="noopener noreferrer">Support</a>
+        </div>
+        <label class="toggle-control">
+          <input type="checkbox" id="kity-toggle" />
+          <span class="toggle-slider kity-toggle-slider">
+            <span class="toggle-slider__state toggle-slider__state--on">ON</span>
+            <span class="toggle-slider__state toggle-slider__state--off">OFF</span>
+          </span>
+        </label>
+      </section>
+
+      <section class="disclaimer">
+        Privacy note: Kity does not see or collect your data
+      </section>
+    </div>
+  </div>
+
+  <script src="popup/popup.js"></script>
+</body>
+</html>

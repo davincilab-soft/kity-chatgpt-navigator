@@ -1,0 +1,124 @@
+/* Kity Focus Ring - Light mode (default) */
+.kity-focus {
+  outline: 3px solid rgba(74, 158, 255, 0.5) !important;
+  outline-offset: 2px !important;
+  border-radius: 8px !important;
+  scroll-margin: 100px;
+}
+
+/* Dark mode focus ring */
+html.dark .kity-focus {
+  outline: 3px solid rgba(100, 180, 255, 0.6) !important;
+}
+
+/* Special styling for main pane focus */
+main.kity-focus {
+  outline-offset: -3px !important;
+  border-radius: 0 !important;
+}
+
+/* Kity Toast Notifications - Light mode (default) */
+.kity-toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background: rgba(255, 255, 255, 0.25);
+  color: #333;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 999999;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  backdrop-filter: blur(8px);
+}
+
+/* Dark mode toasts - when html has dark class */
+html.dark .kity-toast {
+  background: rgba(50, 50, 50, 0.8);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.kity-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Kity Message Counter - Light mode (default) */
+.kity-message-counter {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.25);
+  color: #333;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 999999;
+  opacity: 0;
+  transform: translateX(-50%) translateY(-5px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  backdrop-filter: blur(8px);
+}
+
+/* Dark mode message counter */
+html.dark .kity-message-counter {
+  background: rgba(50, 50, 50, 0.8);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.kity-message-counter.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Kity Text Selection (no visual highlighting, used for tracking only) */
+
+/* Kity Response Copy Highlight (for plain text responses) - Light mode */
+.kity-response-copied {
+  background-color: rgba(196, 255, 196, 0.8) !important;
+  border-radius: 4px !important;
+  transition: background-color 0.15s ease-out !important;
+}
+
+/* Dark mode response highlight */
+html.dark .kity-response-copied {
+  background-color: rgba(34, 139, 34, 0.4) !important;
+}
+
+/* Highlight code blocks within copied responses - just the border, no background overlap */
+.kity-response-copied pre {
+  box-shadow: 0 0 0 4px rgba(144, 238, 144, 0.5) !important;
+  border-radius: 4px !important;
+}
+
+/* Dark mode code blocks within responses */
+html.dark .kity-response-copied pre {
+  box-shadow: 0 0 0 4px rgba(34, 139, 34, 0.6) !important;
+}
+
+/* Kity Code Block Copy Highlight - Light mode */
+.kity-code-copied {
+  box-shadow: 0 0 0 4px rgba(144, 238, 144, 0.5) !important;
+  border-radius: 4px !important;
+  background-color: rgba(144, 238, 144, 0.5) !important;
+  transition: box-shadow 0.15s ease-out, background-color 0.15s ease-out !important;
+}
+
+/* Dark mode code block highlight */
+html.dark .kity-code-copied {
+  box-shadow: 0 0 0 4px rgba(34, 139, 34, 0.6) !important;
+  background-color: rgba(34, 139, 34, 0.3) !important;
+}

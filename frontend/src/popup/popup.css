@@ -1,0 +1,495 @@
+:root {
+  /* Base font family and default text color for the widget */
+  --widget-font-family: 'Segoe UI', sans-serif;
+  --widget-body-color: #1d2a36;
+
+  /* Branding area: app name and tagline */
+  --widget-brand-name-size: 17px;
+  --widget-brand-name-weight: 600;
+  --widget-brand-name-style: normal;
+  --widget-tagline-size: 12px;
+  --widget-tagline-weight: 400;
+  --widget-tagline-style: normal;
+
+  /* Header button */
+  --widget-link-weight: 300;
+  --widget-link-style: normal;
+
+  /* Promo section typography */
+  --widget-promo-title-size: 26px;
+  --widget-promo-title-weight: 700;
+  --widget-promo-title-style: normal;
+  --widget-promo-subtitle-size: 12px;
+  --widget-promo-subtitle-weight: 600;
+  --widget-promo-subtitle-style: normal;
+  --widget-promo-note-size: 10px;
+  --widget-promo-note-weight: 500;
+  --widget-promo-note-style: italic;
+  --widget-promo-badge-size: 14px;
+  --widget-promo-badge-weight: 600;
+  --widget-promo-badge-style: normal;
+
+  /* Status area icon and auth text */
+  --widget-status-icon-size: 32px;
+  --widget-auth-info-size: 13px;
+  --widget-auth-info-style: normal;
+
+  /* Primary CTA button */
+  --widget-primary-button-size: 14px;
+  --widget-primary-button-weight: 300;
+  --widget-primary-button-style: normal;
+
+  /* Theme toggle card text */
+  --widget-decor-title-weight: 700;
+  --widget-decor-title-style: normal;
+  --widget-decor-subtitle-size: 12px;
+  --widget-decor-subtitle-weight: 400;
+  --widget-decor-subtitle-style: normal;
+
+  /* Footer/extras area */
+  --widget-extras-font-size: 13px;
+  --widget-extras-font-style: normal;
+  --widget-link-list-weight: 600;
+  --widget-link-list-style: normal;
+
+  /* Toggle switch labels */
+  --widget-toggle-state-size: 10px;
+  --widget-toggle-state-weight: 700;
+  --widget-toggle-state-style: normal;
+}
+
+/* Base type + palette */
+:root {
+  font-family: var(--widget-font-family, 'Segoe UI', sans-serif);
+  color: var(--widget-body-color, #361d36);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f2f4f8;
+}
+
+/* Card shell */
+#kity-popup {
+  width: 360px;
+  min-height: auto;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 20px 40px rgba(26, 40, 67, 0.18);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-header {
+  background: #680168;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-end;
+  min-width: 140px;
+}
+
+.header-signin-link {
+  color: #ffebc6;
+  text-decoration: underline;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  display: inline-block;
+  min-width: 120px;
+  text-align: right;
+}
+
+.header-signin-link--ghost {
+  color: #f7d9ff;
+  opacity: 0.85;
+}
+
+.auth-info {
+  margin: 8px 20px 0;
+  color: #5a3a5a;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.auth-info--greeting {
+  color: #f59a1b;
+  text-decoration: none;
+}
+
+.auth-info__switch {
+  margin-left: 6px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: #eb951e;
+  text-decoration: underline;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* Branding block */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand__logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #680168;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand__logo img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.brand__name {
+  font-weight: var(--widget-brand-name-weight, 600);
+  font-size: var(--widget-brand-name-size, 17px);
+  font-style: var(--widget-brand-name-style, normal);
+}
+
+.brand__tagline {
+  font-size: var(--widget-tagline-size, 12px);
+  color: #ffffff;
+  font-style: var(--widget-tagline-style, normal);
+  font-weight: var(--widget-tagline-weight, 400);
+}
+
+/* Promo banner */
+.promo {
+  margin: 16px 16px 0;
+  padding: 16px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f5a434, #ffcc33);
+  color: #680168;
+  position: relative;
+}
+
+.promo__title {
+  font-size: var(--widget-promo-title-size, 32px);
+  font-weight: var(--widget-promo-title-weight, 700);
+  font-style: var(--widget-promo-title-style, normal);
+  margin: 0;
+}
+
+#paid-promo-title {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.promo__subtitle {
+  margin: 4px 0 0;
+  font-size: var(--widget-promo-subtitle-size, 14px);
+  font-weight: var(--widget-promo-subtitle-weight, 600);
+  font-style: var(--widget-promo-subtitle-style, normal);
+}
+
+.promo__title-link {
+  display: inline-block;
+  color: inherit;
+  text-decoration: underline;
+}
+
+.promo__guidance-list {
+  margin: 10px 0 0;
+  padding-left: 16px;
+  color: #4a4f57;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.4;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+.promo__guidance-list--disabled {
+  opacity: 0.55;
+  color: #4a4f57;
+}
+
+.promo__shortcut-key {
+  color: #680168;
+  font-weight: 700;
+}
+
+.support-card {
+  margin: 12px 16px 0;
+  padding: 14px 16px;
+  border: 1px solid #e0e8f0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #f7f9fb;
+}
+
+.support-card__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.support-card__title {
+  font-weight: 700;
+  color: #680168;
+}
+
+.support-card__subtitle {
+  color: #556573;
+  font-size: 12px;
+}
+
+/* Status card + CTA */
+.promo__badge {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: var(--widget-promo-badge-size, 14px);
+  font-weight: var(--widget-promo-badge-weight, 600);
+  font-style: var(--widget-promo-badge-style, normal);
+}
+
+.status-card {
+  margin: 16px;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e0e8f0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+}
+
+#auth-info {
+  margin: 4px 0 0;
+  color: #5d6c7b;
+  font-size: var(--widget-auth-info-size, 13px);
+  font-style: var(--widget-auth-info-style, normal);
+}
+
+.primary-button {
+  background: #680168;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: var(--widget-primary-button-size, 14px);
+  font-weight: var(--widget-primary-button-weight, 700);
+  font-style: var(--widget-primary-button-style, normal);
+  min-width: 120px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.primary-button.is-loading {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.primary-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.24);
+}
+
+.primary-button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.status-card {
+  margin-bottom: 12px;
+}
+
+/* Christmas decor toggle card */
+.decor-card {
+  margin: 12px 16px 12px;
+  padding: 14px 16px;
+  border: 1px solid #e0e8f0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #f7f9fb;
+}
+
+.decor-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.decor-card__title {
+  font-weight: var(--widget-decor-title-weight, 700);
+  font-style: var(--widget-decor-title-style, normal);
+  color: #c54ec5;
+}
+
+.decor-card__subtitle {
+  color: #556573;
+  font-size: var(--widget-decor-subtitle-size, 12px);
+  font-weight: var(--widget-decor-subtitle-weight, 400);
+  font-style: var(--widget-decor-subtitle-style, normal);
+}
+
+/* Footer / extras area */
+.extras {
+  margin: 12px 16px 12px;
+  background: #f0f0f0;
+  border: 1px solid #e0e8f0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--widget-extras-font-size, 13px);
+  font-style: var(--widget-extras-font-style, normal);
+  gap: 12px;
+}
+
+.bottom-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.bottom-links a {
+  color: #a734a7;
+  text-decoration: none;
+  font-weight: var(--widget-link-list-weight, 600);
+  font-style: var(--widget-link-list-style, normal);
+}
+
+/* Toggles */
+.toggle-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+
+.toggle-control input {
+  display: none;
+}
+
+.toggle-slider {
+  --slider-width: 56px;
+  --knob-size: 20px;
+  --knob-offset: 3px;
+
+  width: var(--slider-width);
+  height: 26px;
+  border-radius: 999px;
+  background: #3f4041;
+  padding: 3px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+
+.toggle-slider::after {
+  content: '';
+  width: var(--knob-size);
+  height: var(--knob-size);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: var(--knob-offset);
+  left: var(--knob-offset);
+  transition: transform 0.2s ease background 0.2s ease;
+}
+
+.toggle-slider__state {
+  flex: 1;
+  font-size: var(--widget-toggle-state-size, 10px);
+  font-weight: var(--widget-toggle-state-weight, 700);
+  font-style: var(--widget-toggle-state-style, normal);
+  color: rgba(255, 255, 255, 0.85);
+  position: relative;
+  z-index: 1;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+.toggle-slider__state--on {
+  text-align: left;
+  padding-left: 5px;
+}
+
+.toggle-slider__state--off {
+  text-align: right;
+  padding-right: 5px;
+}
+
+.toggle-slider__state.is-active {
+  opacity: 1;
+}
+
+.toggle-slider--on {
+  background: #680168;
+}
+
+.toggle-slider--off {
+  background: #3f4041;
+}
+
+.toggle-control input:checked + .toggle-slider {
+  background: #680168;
+}
+
+.toggle-control input:checked + .toggle-slider::after {
+  transform: translateX(calc(var(--slider-width) - var(--knob-size) - (2 * var(--knob-offset))));
+  background: #fff;
+}
+
+.toggle-control *,
+.toggle-slider {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.disclaimer {
+  margin: 0px 16px 4px;
+  color: #b45fb4;
+  font-size: 12px;
+  text-align: left;
+  font-style: italic;
+}
