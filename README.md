@@ -23,8 +23,8 @@ A free, open-source Chrome extension for keyboard-based navigation in ChatGPT.
 
 ```bash
 # Clone the repository
-git clone https://github.com/NikitaSukhikh/kity.git
-cd kity/frontend
+git clone https://github.com/davincilab-soft/kity-chatgpt-navigator.git
+cd kity-chatgpt-navigator/frontend
 
 # Install dependencies
 npm install
@@ -73,7 +73,7 @@ See [PRIVACY.md](frontend/PRIVACY.md) for full privacy policy.
 ## Repository Structure
 
 ```
-kity/
+kity-chatgpt-navigator/
 ├── frontend/          # Chrome extension (TypeScript + esbuild)
 │   ├── src/          # Source code
 │   ├── dist/         # Built extension (after npm run build)
@@ -103,7 +103,7 @@ MIT License - see LICENSE file for details
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/NikitaSukhikh/kity/issues)
+- **Issues**: [GitHub Issues](https://github.com/davincilab-soft/kity-chatgpt-navigator/issues)
 - **Changelog**: [CHANGELOG.md](frontend/CHANGELOG.md)
 
 ## Support Development (Optional)
@@ -116,4 +116,4 @@ Your support helps maintain and improve Kity. The extension will always remain o
 
 ## Credits
 
-Created by [Nikita Sukhikh](https://github.com/NikitaSukhikh)
+Maintained by [DaVinci Lab](https://github.com/davincilab-soft)

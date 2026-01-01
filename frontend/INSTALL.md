@@ -10,8 +10,8 @@
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/NikitaSukhikh/kity.git
-   cd kity/frontend
+   git clone https://github.com/davincilab-soft/kity-chatgpt-navigator.git
+   cd kity-chatgpt-navigator/frontend
    ```
 
 2. **Install dependencies**
@@ -94,7 +94,7 @@ The extension requires minimal permissions:
 
 - **Usage guide**: See [QUICKSTART.md](QUICKSTART.md) for keyboard shortcuts and features
 - **Customize shortcuts**: Edit in `chrome://extensions/shortcuts`
-- **Report issues**: [GitHub Issues](https://github.com/NikitaSukhikh/kity/issues)
+- **Report issues**: [GitHub Issues](https://github.com/davincilab-soft/kity-chatgpt-navigator/issues)
 
 ## Support Development (Optional)
 
