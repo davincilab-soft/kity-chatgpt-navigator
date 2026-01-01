@@ -1,5 +1,7 @@
 /// <reference types="chrome"/>
 
+import { queryActiveChatGptTab } from "../common/tabs";
+
 interface PopupState {
   enabled: boolean;
   decorEnabled: boolean;
@@ -127,8 +129,8 @@ function onDecorToggleChanged() {
   renderDecorToggle();
 
   chrome.storage.sync.set({ [STORAGE_KEYS.decor]: enabled }, () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const tabId = tabs[0]?.id;
+    queryActiveChatGptTab((tab) => {
+      const tabId = tab?.id;
       if (!tabId) return;
       chrome.tabs.sendMessage(tabId, { type: "KITY_SET_THEME_ENABLED", enabled }, () => {
         // ignore missing content script errors
@@ -183,13 +185,13 @@ function renderView() {
 
   if (paidPromoTitle) {
     paidPromoTitle.textContent = isOn
-      ? "You're all set. Enjoy ChatGPT with Kity!"
-      : "Turn on Kity to unlock ChatGPT shortcuts";
+      ? "Keyboard shortcuts are ready for ChatGPT."
+      : "Turn on Kity to enable ChatGPT shortcuts.";
   }
 
   if (promoSubtitle) {
     promoSubtitle.textContent = isOn
-      ? "Shortcuts are ready to use."
+      ? "Shortcuts run locally; no data ever leaves your browser."
       : "";
     promoSubtitle.style.display = isOn ? "" : "none";
   }

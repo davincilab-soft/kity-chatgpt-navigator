@@ -240,6 +240,12 @@ body {
 .promo__shortcut-key {
   color: #680168;
   font-weight: 700;
+  font-size: 13px;
+}
+.promo__shortcut-arrow {
+  font-weight: 900;
+  font-size: 17px;
+  line-height: 1;
 }
 
 .support-card {

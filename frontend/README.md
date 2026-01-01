@@ -18,8 +18,8 @@ Kity is an MV3 browser extension that lets you navigate modern web apps with sma
 - Dev note: the old backend server is no longer required for trials.
 
 ## Permissions
-- `activeTab`, `tabs`, `clipboardWrite`, `storage`, `alarms`
-- `host_permissions`: `https://extensionpay.com/*`
+- `clipboardWrite`, `storage`
+- Host permissions: `https://chatgpt.com/*`, `https://chat.openai.com/*`
 
 ## Scripts
 
@@ -40,6 +40,14 @@ cd frontend
 npm install
 npm run build
 ```
+
+## Release package & verification
+
+The distributable zip is `kity-extension.zip` at the root of `frontend/`.
+
+- SHA256: `A84B4BDA9751D5961F62829EEC9388F9194280FA0CD04E8AE1CD58AD400AE6DE`
+- Verify on Windows (PowerShell): `Get-FileHash kity-extension.zip`
+- Verify on macOS/Linux: `sha256sum kity-extension.zip`
 
 ## Keyboard shortcuts (ChatGPT)
 

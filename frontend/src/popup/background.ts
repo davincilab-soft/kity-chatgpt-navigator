@@ -5,6 +5,7 @@ import {
   LICENSE_STORAGE_KEYS,
   LicenseService,
 } from "../shared/license";
+import { queryAllChatGptTabs } from "../common/tabs";
 
 type KityMessage =
   | { type: "KITY_OPEN_DOCS" }
@@ -172,7 +173,7 @@ function handleOpenDocs() {
 }
 
 function broadcastEnabledState(enabled: boolean): void {
-  chrome.tabs.query({}, (tabs) => {
+  queryAllChatGptTabs((tabs) => {
     tabs.forEach((tab) => {
       if (!tab.id) {
         return;

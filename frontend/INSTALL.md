@@ -1,6 +1,6 @@
 # Installation Instructions
 
-## ✅ Build Complete!
+## Build Complete
 
 The extension has been built successfully and is ready to load.
 
@@ -29,7 +29,7 @@ The extension has been built successfully and is ready to load.
 
 2. **Try a Keyboard Shortcut**
    - Press `Ctrl+Left` to focus the sidebar
-   - You should see a blue focus ring appear!
+   - You should see a blue focus ring appear
 
 3. **Check Console (Optional)**
    - Open DevTools (F12)
@@ -51,11 +51,17 @@ The extension has been built successfully and is ready to load.
 - Check the extension is enabled
 - Verify in `chrome://extensions/` that Kity has access to chatgpt.com
 
+## Verify the Zip (if downloading)
+
+- SHA256 for `kity-extension.zip`: `57FB9AA851909B8A707FAF56D2F6CF4066EEB14B0895AF668261A4B58AED70B4`
+- Windows (PowerShell): `Get-FileHash kity-extension.zip`
+- macOS/Linux: `sha256sum kity-extension.zip`
+
 ## Next Steps
 
-- ✅ Extension is working → See [QUICKSTART.md](QUICKSTART.md) for usage
-- 🔧 Make changes → Run `npm run watch` for auto-rebuild
-- 📝 Customize → Edit keyboard shortcuts in `chrome://extensions/shortcuts`
+- Extension is working → See [QUICKSTART.md](QUICKSTART.md) for usage
+- Make changes → Run `npm run watch` for auto-rebuild
+- Customize → Edit keyboard shortcuts in `chrome://extensions/shortcuts`
 
 ---
 

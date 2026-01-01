@@ -45,12 +45,9 @@ Kity is a browser-only keyboard navigation extension. We don't collect, transmit
 
 ## Browser Permissions
 
-- **activeTab** — Interact with the current page when you use shortcuts
-- **tabs** — Manage tab focus
 - **clipboardWrite** — Copy text when you use copy shortcut
 - **storage** — Save your preferences and license flags locally
-- **alarms** — Schedule license validation checks
-- **host_permissions** — `https://extensionpay.com/*` (ExtensionPay trial/licensing). If the backend is enabled in the cloud, the manifest would list that HTTPS origin explicitly.
+- **host permissions** — `https://chatgpt.com/*` and `https://chat.openai.com/*` so the content script only runs on ChatGPT.
 
 ## Your Rights
 

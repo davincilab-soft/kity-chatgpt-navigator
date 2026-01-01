@@ -68,34 +68,26 @@
 <body>
     <div class="container">
         <h1>Privacy Policy for Kity</h1>
-        <p class="last-updated">Last Updated: December 1, 2025</p>
+        <p class="last-updated">Last Updated: December 2, 2025</p>
 
         <div class="highlight">
-            <strong>TL;DR:</strong> Kity is a free, browser-only keyboard navigation extension. We don't collect, transmit, or sell your data. Optional support payments are handled directly by Stripe on their hosted page; Kity never sees payment details.
+            <strong>TL;DR:</strong> Kity adds keyboard shortcuts to ChatGPT. All code runs locally in your browser. We do not collect, transmit, or sell any personal data. Optional support payments happen on Stripe's hosted checkout page; Kity never sees payment details.
         </div>
 
         <div class="section">
             <h2>1. Introduction</h2>
             <p>
-                Kity ("we," "our," or "the extension") provides site-aware keyboard navigation. This policy explains how we handle information when you use our extension.
-            </p>
-            <p>
-                <strong>Our commitment:</strong> We do not collect, store, or transmit your browsing activity, webpage content, or personal data.
+                Kity ("we", "our") is a browser extension that provides site-aware keyboard navigation for ChatGPT (chatgpt.com and chat.openai.com). This policy explains how we handle information when you use the extension.
             </p>
         </div>
 
         <div class="section">
-            <h2>2. Information We Do NOT Collect</h2>
-            <p>Kity does not collect, access, or transmit:</p>
+            <h2>2. What We Do Not Collect</h2>
             <ul>
-                <li>Your browsing history</li>
-                <li>Webpage content you view or create</li>
-                <li>Text you type or edit on websites</li>
-                <li>Passwords or authentication credentials</li>
-                <li>Cookies from websites you visit</li>
-                <li>Your IP address or location data</li>
-                <li>Analytics or tracking data</li>
-                <li>Device information beyond what the browser provides</li>
+                <li>No personal information is collected, stored, or transmitted.</li>
+                <li>No browsing history, page content, or chats are sent to our servers (we do not operate servers for Kity).</li>
+                <li>No analytics, tracking pixels, or advertising SDKs are included.</li>
+                <li>No remote code is fetched or executed; all code ships inside the extension package.</li>
             </ul>
         </div>
 
@@ -103,41 +95,41 @@
             <h2>3. Information We Store Locally</h2>
             <p>Stored only in your browser via <code>chrome.storage.sync</code>:</p>
             <ul>
-                <li><strong>Extension enabled/disabled state</strong></li>
-                <li><strong>Theme preferences</strong></li>
+                <li>Extension on/off state</li>
+                <li>Theme preferences</li>
             </ul>
-            <p>Nothing is sent to our servers.</p>
+            <p>Nothing is sent to any external server.</p>
         </div>
 
         <div class="section">
             <h2>4. Optional Support Payments</h2>
             <p>
-                If you choose to support Kity, you are redirected to Stripe’s hosted checkout page. Payment data stays with Stripe. Kity does not collect, process, or store payment details or personal information.
+                If you choose to support Kity, you are redirected to Stripe's hosted checkout page. Payment data stays with Stripe. Kity does not collect, process, or store payment details or personal information.
             </p>
         </div>
 
         <div class="section">
             <h2>5. Browser Permissions Explained</h2>
             <ul>
-                <li><strong>activeTab:</strong> Interact with the current page when you use shortcuts</li>
-                <li><strong>tabs:</strong> Target the active tab for commands</li>
-                <li><strong>clipboardWrite:</strong> Copy text to your clipboard when you use the copy shortcut</li>
-                <li><strong>storage:</strong> Save your preferences locally</li>
+                <li><strong>clipboardWrite:</strong> Copy selected text to your clipboard when you trigger the copy shortcut.</li>
+                <li><strong>storage:</strong> Save your Kity preferences locally in Chrome sync storage.</li>
+                <li><strong>Host permissions (chatgpt.com, chat.openai.com):</strong> Inject the keyboard navigation script only on ChatGPT so shortcuts and scrolling work.</li>
+                <li><strong>No "tabs" permission:</strong> Commands are limited to ChatGPT tabs using host-scoped lookups; broad tab access is not requested.</li>
             </ul>
-            <p><strong>Content Scripts:</strong> Injected only on supported sites (e.g., ChatGPT) to enable keyboard navigation. No data leaves your browser.</p>
+            <p><strong>Remote code:</strong> Kity does not fetch or execute remote code. Everything is packaged with the extension.</p>
         </div>
 
         <div class="section">
             <h2>6. Data Security</h2>
             <ul>
-                <li>No user data is transmitted to our servers.</li>
-                <li>Optional Stripe checkout uses HTTPS and is handled by Stripe.</li>
+                <li>No user data is transmitted to us.</li>
+                <li>Optional Stripe checkout uses HTTPS and is handled directly by Stripe.</li>
                 <li>Extension code is readable and unobfuscated.</li>
             </ul>
         </div>
 
         <div class="section">
-            <h2>7. Children’s Privacy</h2>
+            <h2>7. Children's Privacy</h2>
             <p>Kity is not directed to children under 13. We do not knowingly collect personal information from children.</p>
         </div>
 
@@ -151,22 +143,22 @@
 
         <div class="section">
             <h2>9. Changes to This Policy</h2>
-            <p>We may update this policy and will revise the “Last Updated” date above.</p>
+            <p>We may update this policy and will revise the "Last Updated" date above.</p>
         </div>
 
         <div class="section">
             <h2>10. Contact Us</h2>
             <ul>
                 <li><strong>Email:</strong> privacy@kity.software</li>
-                <li><strong>Website:</strong> <a href="https://kity.software" target="_blank">https://kity.software</a></li>
+                <li><strong>Website:</strong> <a href="https://kity.software" target="_blank" rel="noopener">https://kity.software</a></li>
             </ul>
         </div>
 
         <div style="text-align: center; color: #7f8c8d; font-size: 0.9em;">
             <p>
                 <strong>Kity Browser Extension</strong><br>
-                Privacy-First Keyboard Navigation<br>
-                © 2025 Kity. All rights reserved.
+                Privacy-first keyboard navigation<br>
+                &copy; 2025 Kity. All rights reserved.
             </p>
         </div>
     </div>

@@ -39,8 +39,8 @@ export class ScrollManager {
    * Main scroll animation loop
    */
   private runScrollAnimation(): void {
-    const scrollContainer = ChatGPTSelectors.getScrollContainer();
-    if (!scrollContainer) {
+    const container = ChatGPTSelectors.getScrollContainer();
+    if (!container) {
       console.log('[Kity] Scroll container not found');
       this.scrollAnimationId = null;
       return;
@@ -55,11 +55,17 @@ export class ScrollManager {
       this.scrollSpeed = Math.max(this.scrollSpeed - this.scrollDeceleration, 0);
     }
 
-    // Apply scroll
-    if (this.scrollDirection === 'up') {
-      scrollContainer.scrollTop -= this.scrollSpeed;
-    } else if (this.scrollDirection === 'down') {
-      scrollContainer.scrollTop += this.scrollSpeed;
+    // Apply scroll - try multiple methods for compatibility with virtual scrolling
+    if (this.scrollSpeed > 0) {
+      const delta = this.scrollDirection === 'down' ? this.scrollSpeed : -this.scrollSpeed;
+
+      // Try scrollBy first (works better with some virtual scroll implementations)
+      if ('scrollBy' in container && typeof container.scrollBy === 'function') {
+        container.scrollBy(0, delta);
+      } else {
+        // Fallback to scrollTop
+        container.scrollTop += delta;
+      }
     }
 
     // Continue animation if still moving

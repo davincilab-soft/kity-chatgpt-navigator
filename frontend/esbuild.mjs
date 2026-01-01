@@ -6,13 +6,17 @@ const isWatch = process.argv.includes('--watch');
 // Create manifest
 const manifest = {
   manifest_version: 3,
-  name: 'Kity',
+  name: 'Kity ChatGPT Navigator',
   short_name: 'Kity',
-  version: '1.0.0',
-  description: 'Site-aware keyboard navigator for modern web applications',
+  version: '1.0.1',
+  description: 'Fast ChatGPT Navigator',
   minimum_chrome_version: '106',
   homepage_url: 'https://kity.software',
-  permissions: ['activeTab', 'tabs', 'clipboardWrite', 'storage'],
+  permissions: ['clipboardWrite', 'storage'],
+  host_permissions: [
+    'https://chat.openai.com/*',
+    'https://chatgpt.com/*',
+  ],
   background: {
     service_worker: 'background.js',
   },

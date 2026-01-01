@@ -8,8 +8,8 @@
 
 ## Listing Info
 - Name: `Kity - Keyboard Navigator`
-- Summary: `Site-aware keyboard navigation for ChatGPT and web apps. Navigate, scroll, and copy without touching your mouse.`
-- Description: Keyboard-only navigation for ChatGPT; shortcuts include Ctrl+Left/Right (pane focus), Ctrl+Up/Down (scroll), Ctrl+Shift+Up/Down (user messages), Ctrl+Enter (click), Ctrl+A/Z (jump), Ctrl+C (copy). Privacy-first: no data collection or tracking; optional support uses Stripe’s hosted page. Manifest V3, minimal perms (activeTab, tabs, storage, clipboard).
+- Summary: `Fast ChatGPT Navigator. Navigate, scroll, and copy without touching your mouse.`
+- Description: Keyboard-only navigation for ChatGPT; shortcuts include Ctrl+Left/Right (pane focus), Ctrl+Up/Down (scroll), Ctrl+Shift+Up/Down (user messages), Ctrl+Enter (click), Ctrl+A/Z (jump), Ctrl+C (copy). Privacy-first: no data collection or tracking; optional support uses Stripe’s hosted page. Manifest V3, minimal perms (storage, clipboardWrite) with host access limited to chatgpt.com and chat.openai.com.
 - Category: Productivity
 - Language: English (US)
 - Homepage/Support URL: https://kity.software/
@@ -17,10 +17,10 @@
 - Single Purpose: Keyboard-based navigation and shortcuts for web apps (ChatGPT optimized).
 
 ## Permissions & Justifications
-- `activeTab`: interact with the current page when executing shortcuts.
-- `tabs`: identify/send commands to the active tab.
 - `clipboardWrite`: copy selected content on Ctrl+C.
 - `storage`: persist user preferences (enabled state, theme toggle).
+- `host_permissions`: `https://chatgpt.com/*`, `https://chat.openai.com/*` to scope injection and tab queries only to ChatGPT.
+  - Note: Tab queries are restricted to ChatGPT URLs so this works without the `tabs` permission.
 
 ## Data Disclosure
 - Data collected: None.
@@ -35,6 +35,7 @@
 2) `npm run build`
 3) Verify `dist/` contains: manifest.json, background.js, content.js, popup.html, popup/popup.js, popup/popup.css, styles.css, icons/, privacy-policy.html, themes/.
 4) Zip contents of `dist/` (not the folder itself).
+5) SHA256 for the packaged zip (`kity-extension.zip`): `A84B4BDA9751D5961F62829EEC9388F9194280FA0CD04E8AE1CD58AD400AE6DE`
 
 ## Submission Steps
 1) Go to the Developer Dashboard and create a new item.

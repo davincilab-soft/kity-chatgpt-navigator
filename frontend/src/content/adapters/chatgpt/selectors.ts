@@ -24,11 +24,70 @@ export class ChatGPTSelectors {
 
   /**
    * Get the scroll container within main pane
+   * Updated to support ChatGPT 5.2+ with multiple fallback strategies
    */
   static getScrollContainer(): Element | null {
     const main = this.getMain();
     if (!main) return null;
-    return main.querySelector('.overflow-y-auto');
+
+    // Strategy 1: ChatGPT 5.2+ uses [data-scroll-root="true"] as the primary scroll container
+    let container = document.querySelector('[data-scroll-root="true"]');
+    if (container) {
+      return container;
+    }
+
+    // Also try searching within main
+    container = main.querySelector('[data-scroll-root="true"]');
+    if (container) {
+      return container;
+    }
+
+    // Strategy 2: Try the old selector for backwards compatibility with older ChatGPT versions
+    container = main.querySelector('.overflow-y-auto');
+    if (container) {
+      return container;
+    }
+
+    // Strategy 3: Find ALL elements with scrollable content (including overflow:hidden)
+    // Fallback for cases where data-scroll-root is not present
+    const allElements = main.querySelectorAll('*');
+    for (const candidate of allElements) {
+      // Skip tiny elements (like .sr-only) - must be at least 100px tall
+      if (candidate.clientHeight < 100) {
+        continue;
+      }
+
+      // Check if element has scrollable content (scrollHeight > clientHeight)
+      if (candidate.scrollHeight > candidate.clientHeight) {
+        // Test if scrollTop can be modified (element is actually scrollable)
+        const oldScrollTop = candidate.scrollTop;
+        candidate.scrollTop = oldScrollTop + 1;
+        const canScroll = candidate.scrollTop !== oldScrollTop;
+        candidate.scrollTop = oldScrollTop; // Restore original position
+
+        if (canScroll) {
+          return candidate;
+        }
+      }
+    }
+
+    // Strategy 4: Check if the page scrolls at the window level
+    const currentScrollY = window.scrollY || window.pageYOffset;
+    const canScrollWindow = document.documentElement.scrollHeight > window.innerHeight;
+
+    if (canScrollWindow) {
+      // Test if window can actually scroll
+      window.scrollTo(0, currentScrollY + 1);
+      const didScroll = window.scrollY !== currentScrollY;
+      window.scrollTo(0, currentScrollY); // Restore
+
+      if (didScroll) {
+        return document.documentElement;
+      }
+    }
+
+    // Strategy 5: Last resort - return main element itself
+    return main;
   }
 
   /**

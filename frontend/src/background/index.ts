@@ -1,4 +1,5 @@
 import type { CommandType } from '../content/adapter.types';
+import { queryActiveChatGptTab } from '../common/tabs';
 
 // Map keyboard shortcuts to commands
 const commandMap: Record<string, CommandType> = {
@@ -24,9 +25,9 @@ chrome.commands.onCommand.addListener((command) => {
       return;
     }
 
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs[0]?.id) {
-        chrome.tabs.sendMessage(tabs[0].id, {
+    queryActiveChatGptTab((tab) => {
+      if (tab?.id) {
+        chrome.tabs.sendMessage(tab.id, {
           type: 'EXECUTE_COMMAND',
           command: mappedCommand,
         });

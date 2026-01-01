@@ -1,7 +1,7 @@
 {
   "name": "kity-br",
-  "version": "1.0.0",
-  "description": "Site-aware keyboard navigator for modern web applications",
+  "version": "1.0.1",
+  "description": "Fast ChatGPT Navigator",
   "scripts": {
     "build": "node esbuild.mjs",
     "watch": "node esbuild.mjs --watch",
