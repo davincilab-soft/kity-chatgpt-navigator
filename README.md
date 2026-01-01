@@ -1,25 +1,119 @@
-# Kity workspace
+# Kity ChatGPT Navigator
 
-This repo contains:
-- `frontend/` – the MV3 browser extension (TypeScript + esbuild)
-- `backend/` – a minimal Python/Flask service that stores user records in `data/users.db` and can (optionally) sync ExtensionPay users twice daily (ExtensionPay still handles trials; sync is off by default)
+A free, open-source Chrome extension for keyboard-based navigation in ChatGPT.
 
-## Quick start
+## Features
+
+- 🎯 **Keyboard Navigation** - Navigate ChatGPT entirely with keyboard shortcuts
+- ⚡ **Fast Scrolling** - Smooth scroll through conversations with Ctrl+Up/Down
+- 🔍 **Focus Management** - Switch between sidebar and chat with Ctrl+Left/Right
+- 📋 **Quick Copy** - Copy messages with Ctrl+C
+- 🎨 **Visual Indicators** - Clear focus rings show where you are
+- 🎄 **Optional Themes** - Seasonal decorations (can be disabled)
+
+## Quick Start
+
+### Installation from Chrome Web Store
+
+1. Install [Kity ChatGPT Navigator](https://chrome.google.com/webstore) from the Chrome Web Store
+2. Visit [ChatGPT](https://chatgpt.com)
+3. Press `Ctrl+Left` to focus the sidebar and start navigating!
+
+### Building from Source
 
 ```bash
-# Extension build
-cd frontend
+# Clone the repository
+git clone https://github.com/NikitaSukhikh/kity.git
+cd kity/frontend
+
+# Install dependencies
 npm install
+
+# Build the extension
 npm run build
 
-# Backend (optional; stores user records)
-cd backend
-python -m venv .venv
-. .venv/Scripts/activate    # on Windows PowerShell: .\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-python app.py               # listens on http://localhost:8787
+# The built extension will be in the dist/ directory
 ```
 
-The extension signs in and starts the cardless trial via ExtensionPay, so host permissions only include `https://extensionpay.com/*`. The backend can be used separately if you want to store user signups and subscription status in SQLite.
+See [INSTALL.md](frontend/INSTALL.md) for detailed installation instructions.
 
-If you host the backend in the cloud, keep it HTTPS-only, list the exact origin in the manifest `host_permissions` (only if the extension calls it), and reflect the data flow (email/optional name/status/dates) in the privacy policy. Browsing content should never be collected.
+## Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+Left` | Focus sidebar |
+| `Ctrl+Right` | Focus main chat area |
+| `Ctrl+Up` | Navigate up / Scroll up |
+| `Ctrl+Down` | Navigate down / Scroll down |
+| `Ctrl+Shift+Up` | Jump to previous user message |
+| `Ctrl+Shift+Down` | Jump to next user message |
+| `Ctrl+A` | Jump to first message / Extend selection up |
+| `Ctrl+Z` | Jump to last message / Extend selection down |
+| `Ctrl+C` | Copy selected message |
+| `Ctrl+Enter` | Click focused element |
+
+See [QUICKSTART.md](frontend/QUICKSTART.md) for detailed usage guide.
+
+## Privacy
+
+Kity is currently **100% free and open source** with:
+- ✅ No payment system, trials, or subscriptions
+- ✅ No data collection or analytics
+- ✅ No tracking
+- ✅ Everything runs locally in your browser
+
+See [PRIVACY.md](frontend/PRIVACY.md) for full privacy policy.
+
+## Compatibility
+
+- **ChatGPT 5.2+** - Fully supported (as of v1.0.1)
+- **Older ChatGPT versions** - Backward compatible
+- **Browsers** - Chrome 106+, Edge, and other Chromium-based browsers
+
+## Repository Structure
+
+```
+kity/
+├── frontend/          # Chrome extension (TypeScript + esbuild)
+│   ├── src/          # Source code
+│   ├── dist/         # Built extension (after npm run build)
+│   └── public/       # Static assets (icons, etc.)
+└── backend/          # Optional backend (NOT REQUIRED - legacy code)
+```
+
+**Note**: The `backend/` directory is legacy code and NOT needed for normal use. Kity works entirely client-side.
+
+## Development
+
+```bash
+# Watch mode - rebuilds on file changes
+cd frontend
+npm run watch
+```
+
+See [INSTALL.md](frontend/INSTALL.md) for development setup.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+MIT License - see LICENSE file for details
+
+## Support
+
+- **Issues**: [GitHub Issues](https://github.com/NikitaSukhikh/kity/issues)
+- **Changelog**: [CHANGELOG.md](frontend/CHANGELOG.md)
+
+## Support Development (Optional)
+
+Kity is currently **completely free**. If you find it useful and want to support further development:
+
+**[Buy me a coffee ☕](https://buy.stripe.com/6oU28k2iz31Pdg1eRucjS02)**
+
+Your support helps maintain and improve Kity. The extension will always remain open source.
+
+## Credits
+
+Created by [Nikita Sukhikh](https://github.com/NikitaSukhikh)

@@ -8,7 +8,6 @@ The extension has been successfully built and is ready to use!
 
 ### Core Features
 - ✅ ChatGPT adapter with full keyboard navigation
-- ✅ Generic fallback adapter for other sites
 - ✅ Background service worker for command handling
 - ✅ Focus ring and toast notifications
 - ✅ Keyboard shortcuts (see below)
