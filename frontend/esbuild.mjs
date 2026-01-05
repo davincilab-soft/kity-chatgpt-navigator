@@ -8,7 +8,7 @@ const manifest = {
   manifest_version: 3,
   name: 'Kity ChatGPT Navigator',
   short_name: 'Kity',
-  version: '1.0.1',
+  version: '1.0.2',
   description: 'Fast ChatGPT Navigator',
   minimum_chrome_version: '106',
   homepage_url: 'https://kity.software',

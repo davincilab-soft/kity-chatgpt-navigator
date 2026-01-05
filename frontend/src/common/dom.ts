@@ -47,12 +47,50 @@ export function scrollIntoView(element: Element, block: ScrollLogicalPosition = 
 }
 
 let focusRingTimeout: number | null = null;
+const MAIN_FOCUS_DURATION_MS = 500; // 0.5s on main pane
+const MESSAGE_FOCUS_DURATION_MS = 400;
 
-export function setFocusRing(element: Element): void {
+type FocusRingOptions = {
+  scroll?: boolean;
+  block?: ScrollLogicalPosition;
+};
+
+/**
+ * Detects if an element is likely a message/conversation element.
+ * Uses common patterns across different LLM chat interfaces.
+ */
+function isLikelyMessage(element: Element): boolean {
+  const tagName = element.tagName.toLowerCase();
+
+  // Common message indicators across LLM UIs
+  if (
+    element.hasAttribute('data-message-author-role') ||
+    element.hasAttribute('data-message-id') ||
+    tagName === 'article'
+  ) {
+    return true;
+  }
+
+  // Check for message-like class names (common patterns)
+  const className = element.className || '';
+  const messagePatterns = [
+    /message/i,
+    /conversation/i,
+    /chat-item/i,
+    /response/i,
+  ];
+
+  return messagePatterns.some(pattern => pattern.test(className));
+}
+
+export function setFocusRing(element: Element, options?: FocusRingOptions): void {
   if (!element || !element.isConnected) {
     console.warn('[Kity] Cannot set focus ring: element not in DOM');
     return;
   }
+
+  const shouldScroll = options?.scroll ?? true;
+  const block = options?.block ?? 'center';
 
   // Clear any existing timeout
   if (focusRingTimeout !== null) {
@@ -72,36 +110,38 @@ export function setFocusRing(element: Element): void {
   // Log for debugging
   console.log('[Kity] Focus ring set on:', element);
 
-  // Use browser's native scrollIntoView which is more reliable
-  // Scroll to center position instantly, then optionally smooth adjust
-  element.scrollIntoView({ behavior: 'instant', block: 'center' });
-
-  // Small delay then do a smooth adjustment if needed
-  setTimeout(() => {
-    if (element.classList.contains('kity-focus')) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  }, 50);
-
   const tagName = element.tagName.toLowerCase();
   const isMain = tagName === 'main';
-  const isMessage =
-    element.hasAttribute('data-message-author-role') ||
-    element.hasAttribute('data-message-id') ||
-    tagName === 'article';
+  const isMessage = isLikelyMessage(element);
 
-  // If it's a main pane, remove focus ring after 500ms
+  // Avoid scrolling the whole page when focusing the main pane
+  const skipScroll = !shouldScroll || isMain;
+
+  if (!skipScroll) {
+    // Use browser's native scrollIntoView which is more reliable
+    // Scroll to center position instantly, then optionally smooth adjust
+    element.scrollIntoView({ behavior: 'instant', block });
+
+    // Small delay then do a smooth adjustment if needed
+    setTimeout(() => {
+      if (element.classList.contains('kity-focus')) {
+        element.scrollIntoView({ behavior: 'smooth', block });
+      }
+    }, 50);
+  }
+
+  // If it's a main pane, remove focus ring after the configured duration
   if (isMain) {
     focusRingTimeout = window.setTimeout(() => {
       element.classList.remove('kity-focus');
       focusRingTimeout = null;
-    }, 500);
+    }, MAIN_FOCUS_DURATION_MS);
   }
-  // If it's a ChatGPT message, remove focus ring after 400ms
+  // If it's a message-like element, remove focus ring after 400ms
   else if (isMessage) {
     focusRingTimeout = window.setTimeout(() => {
       element.classList.remove('kity-focus');
       focusRingTimeout = null;
-    }, 400);
+    }, MESSAGE_FOCUS_DURATION_MS);
   }
 }

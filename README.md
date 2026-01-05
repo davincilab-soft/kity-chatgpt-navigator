@@ -64,9 +64,14 @@ Kity is currently **100% free and open source** with:
 
 See [PRIVACY.md](frontend/PRIVACY.md) for full privacy policy.
 
+## Recent Updates (v1.0.2)
+
+- ✅ **Enhanced Scrolling** - Improved scrolling support for latest ChatGPT versions with better container detection
+- ✅ **Better Copy Control** - Manual text selection now fully respected - Ctrl+C copies your selection exactly as you highlighted it
+
 ## Compatibility
 
-- **ChatGPT 5.2+** - Fully supported (as of v1.0.1)
+- **ChatGPT 5.2+** - Fully supported
 - **Older ChatGPT versions** - Backward compatible
 - **Browsers** - Chrome 106+, Edge, and other Chromium-based browsers
 

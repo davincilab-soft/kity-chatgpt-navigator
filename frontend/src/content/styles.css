@@ -13,8 +13,39 @@ html.dark .kity-focus {
 
 /* Special styling for main pane focus */
 main.kity-focus {
-  outline-offset: -3px !important;
-  border-radius: 0 !important;
+  position: relative;
+  outline-offset: 4px !important;
+  border-radius: 10px !important;
+  box-shadow:
+    0 0 0 3px rgba(74, 158, 255, 0.45) inset,
+    0 0 0 4px rgba(74, 158, 255, 0.35) !important;
+}
+
+main.kity-focus::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 14px;
+  border: 3px solid rgba(74, 158, 255, 0.7);
+  box-shadow:
+    0 0 12px 3px rgba(74, 158, 255, 0.6),
+    0 0 0 4px rgba(74, 158, 255, 0.25);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Dark mode main focus */
+html.dark main.kity-focus {
+  box-shadow:
+    0 0 0 3px rgba(100, 180, 255, 0.55) inset,
+    0 0 0 4px rgba(100, 180, 255, 0.4) !important;
+}
+
+html.dark main.kity-focus::after {
+  border: 3px solid rgba(120, 200, 255, 0.9);
+  box-shadow:
+    0 0 14px 4px rgba(120, 200, 255, 0.8),
+    0 0 0 4px rgba(120, 200, 255, 0.35);
 }
 
 /* Kity Toast Notifications - Light mode (default) */

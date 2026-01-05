@@ -59,8 +59,19 @@ export class ChatGPTAdapter implements IAdapter {
 
   focusMain(): void {
     const main = ChatGPTSelectors.getMain();
-    if (main) {
-      setFocusRing(main);
+    const scrollContainer = ChatGPTSelectors.getScrollContainer();
+
+    // Prefer a real scroll container inside main; fall back to main itself
+    const target =
+      (scrollContainer &&
+        scrollContainer !== document.documentElement &&
+        scrollContainer !== document.body
+        ? scrollContainer
+        : null) ||
+      main;
+
+    if (target) {
+      this.withScrollPreserved(() => setFocusRing(target, { scroll: false }));
       this.lastFocusedPane = 'main';
     } else {
       showToast('No main pane found');
@@ -170,5 +181,39 @@ export class ChatGPTAdapter implements IAdapter {
 
   stopScroll(): void {
     this.scrollManager.stopScroll();
+  }
+
+  // ==================== Sidebar Detection ====================
+
+  isInSidebar(): boolean {
+    const currentFocus = document.querySelector('.kity-focus');
+    if (!currentFocus) {
+      return false;
+    }
+
+    const sidebar = ChatGPTSelectors.getSidebar();
+    return !!(sidebar && sidebar.contains(currentFocus));
+  }
+
+  /**
+   * Run an action while preserving the current scroll position of the main container/window.
+   */
+  private withScrollPreserved(action: () => void): void {
+    const container = ChatGPTSelectors.getScrollContainer();
+    if (!container) {
+      action();
+      return;
+    }
+
+    const isWindowScroll = container === document.documentElement || container === document.body;
+    const previousScroll = isWindowScroll ? window.scrollY : (container as HTMLElement).scrollTop;
+
+    action();
+
+    if (isWindowScroll) {
+      window.scrollTo(0, previousScroll);
+    } else {
+      (container as HTMLElement).scrollTop = previousScroll;
+    }
   }
 }

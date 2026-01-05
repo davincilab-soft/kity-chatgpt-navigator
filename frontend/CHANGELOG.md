@@ -2,6 +2,24 @@
 
 All notable changes to the Kity extension will be documented in this file.
 
+## [1.0.2] - 2026-01-05
+
+### Improved
+- **Enhanced Scrolling**: Further improvements to scrolling functionality with better scroll container detection across different ChatGPT versions
+  - Improved compatibility with ChatGPT's dynamic DOM structure
+  - Better handling of scroll containers in various page states
+
+### Fixed
+- **Copy Behavior**: Manual text selection is now fully respected
+  - When you select text manually (with mouse or keyboard), Ctrl+C now copies exactly what you selected
+  - Previously, Ctrl+C would sometimes copy the entire message instead of respecting user selection
+  - Smart copy still works when no text is selected (copies code blocks or full messages based on context)
+
+### Technical Changes
+- Refactored codebase to prepare for multi-LLM support
+- Improved adapter architecture for better maintainability
+- Moved ChatGPT-specific code into dedicated adapter module
+
 ## [1.0.1] - 2026-01-01
 
 ### Changed

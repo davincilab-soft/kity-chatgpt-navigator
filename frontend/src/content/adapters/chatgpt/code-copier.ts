@@ -81,36 +81,14 @@ export class CodeCopier {
     }
 
     // Check if user has manually selected text (ignore programmatic selections)
-    const selection = window.getSelection();
-    const selectedText = selection?.toString().trim();
-
-    if (selectedText && selection && selection.rangeCount > 0) {
-      // Check if the selection is inside a code block or the message we're trying to copy
-      // If so, ignore it and proceed with canvas copy
-      const range = selection.getRangeAt(0);
-      const container = range.commonAncestorContainer;
-
-      // Check if selection is inside a code block (pre element)
-      let current = container.parentElement;
-      let isInCodeBlock = false;
-      while (current && current !== document.body) {
-        if (current.tagName === 'PRE') {
-          isInCodeBlock = true;
-          break;
-        }
-        current = current.parentElement;
-      }
-
-      // If user selected text outside code blocks, copy that selection
-      if (!isInCodeBlock) {
-        console.log('[Kity] User has selected text, copying selection');
-        this.copyTextToClipboard(selectedText);
-        this.hasCopied = true;
-        return;
-      }
-
-      // Otherwise, ignore the selection and continue with canvas copy
-      console.log('[Kity] Selection is inside code block, ignoring and using canvas copy');
+    const manualSelection = this.getManualSelectionText();
+    if (manualSelection) {
+      // Always honor explicit user selection, even inside canvas/code blocks
+      console.log('[Kity] User has selected text, copying selection');
+      showToast('Copied selected text!');
+      this.copyTextToClipboard(manualSelection, 'Copied selected text!', { suppressToast: true });
+      this.hasCopied = true;
+      return;
     }
 
     // No text selected (or selection inside code block), use cursor-based copying
@@ -659,13 +637,26 @@ export class CodeCopier {
   /**
    * Copy text to clipboard using multiple methods
    */
-  private copyTextToClipboard(text: string, toastMessage = 'Copied'): void {
+  private copyTextToClipboard(
+    text: string,
+    toastMessage = 'Copied',
+    options?: { optimistic?: boolean; suppressToast?: boolean }
+  ): void {
     console.log('[Kity] Text to copy:', text.substring(0, 100) + '...');
+
+    const suppressToast = options?.suppressToast ?? false;
+
+    // Optionally show toast immediately for manual selection scenarios
+    if (options?.optimistic) {
+      showToast(toastMessage);
+    }
 
     // Copy to clipboard using multiple methods for better compatibility
     try {
       const showSuccess = (): void => {
-        showToast(toastMessage);
+        if (!suppressToast) {
+          showToast(toastMessage);
+        }
       };
 
       // Method 1: Modern clipboard API
@@ -676,12 +667,12 @@ export class CodeCopier {
         }).catch((err) => {
           console.error('[Kity] Clipboard API failed:', err);
           // Fallback to execCommand
-          this.copyUsingExecCommand(text, toastMessage);
+          this.copyUsingExecCommand(text, toastMessage, { suppressToast });
         });
       } else {
         // Fallback to execCommand
         console.log('[Kity] Clipboard API not available, using execCommand');
-        this.copyUsingExecCommand(text, toastMessage);
+        this.copyUsingExecCommand(text, toastMessage, { suppressToast });
       }
     } catch (err) {
       console.error('[Kity] Copy failed:', err);
@@ -692,7 +683,11 @@ export class CodeCopier {
   /**
    * Copy text using legacy execCommand method
    */
-  private copyUsingExecCommand(text: string, successMessage = 'Copied'): void {
+  private copyUsingExecCommand(
+    text: string,
+    successMessage = 'Copied',
+    options?: { suppressToast?: boolean }
+  ): void {
     const textarea = document.createElement('textarea');
     textarea.value = text;
     textarea.style.position = 'fixed';
@@ -704,7 +699,9 @@ export class CodeCopier {
       const successful = document.execCommand('copy');
       if (successful) {
         console.log('[Kity] Copied successfully via execCommand');
-        showToast(successMessage);
+        if (!options?.suppressToast) {
+          showToast(successMessage);
+        }
       } else {
         console.error('[Kity] execCommand copy failed');
         showToast('Failed to copy');
@@ -715,6 +712,76 @@ export class CodeCopier {
     } finally {
       document.body.removeChild(textarea);
     }
+  }
+
+  /**
+   * Extract text the user explicitly selected, including shadow DOM selections.
+   * Returns null if there is no non-collapsed selection.
+   */
+  private getManualSelectionText(): string | null {
+    const extract = (sel: Selection | null): string => {
+      if (!sel || sel.rangeCount === 0 || sel.isCollapsed) {
+        return '';
+      }
+
+      const direct = sel.toString();
+      if (direct) {
+        return direct;
+      }
+
+      // Fallback: clone range contents to capture textContent
+      try {
+        const clone = sel.getRangeAt(0).cloneContents();
+        return clone.textContent || '';
+      } catch (err) {
+        console.warn('[Kity] Unable to clone selection contents', err);
+        return '';
+      }
+    };
+
+    const normalize = (text: string | null): string => text?.trim() || '';
+
+    // Primary: page selection
+    const primary = normalize(extract(window.getSelection()));
+    if (primary) {
+      return primary;
+    }
+
+    // Selection inside focused inputs/textarea (including Ask ChatGPT popup inputs)
+    const active = document.activeElement as HTMLInputElement | HTMLTextAreaElement | (HTMLElement & { value?: string; selectionStart?: number; selectionEnd?: number }) | null;
+    if (active && typeof active.selectionStart === 'number' && typeof active.selectionEnd === 'number' && active.selectionEnd > active.selectionStart && typeof (active as HTMLInputElement).value === 'string') {
+      const text = (active as HTMLInputElement).value.substring(active.selectionStart, active.selectionEnd);
+      const normalized = normalize(text);
+      if (normalized) {
+        return normalized;
+      }
+    }
+
+    // Fallback: selection inside an active element's shadow DOM (if accessible)
+    if (active?.shadowRoot && 'getSelection' in active.shadowRoot) {
+      const shadowSel = (active.shadowRoot as unknown as { getSelection?: () => Selection | null }).getSelection?.();
+      const shadowText = normalize(extract(shadowSel));
+      if (shadowText) {
+        return shadowText;
+      }
+    }
+
+    // Fallback: try same-origin iframes (e.g., embedded panes) for user selection
+    const frames = Array.from(document.querySelectorAll('iframe'));
+    for (const frame of frames) {
+      try {
+        const win = frame.contentWindow;
+        if (!win) continue;
+        const frameSelection = normalize(extract(win.getSelection?.() || null));
+        if (frameSelection) {
+          return frameSelection;
+        }
+      } catch (err) {
+        // Cross-origin iframe; ignore
+      }
+    }
+
+    return null;
   }
 
   /**

@@ -3,6 +3,8 @@ import type { CommandMessage } from '../common/messaging';
 import { detectAdapterAlias } from '../common/site-detect';
 import { ChatGPTAdapter } from './adapters/chatgpt';
 import { ClaudeAdapter } from './adapters/claude';
+import { GrokAdapter } from './adapters/grok';
+import { GeminiAdapter } from './adapters/gemini';
 import { GmailAdapter } from './adapters/gmail';
 import { GoogleSearchAdapter } from './adapters/google-search';
 import { GoogleDriveAdapter } from './adapters/google-drive';
@@ -209,6 +211,14 @@ function createAdapter(): IAdapter {
     return new ClaudeAdapter();
   }
 
+  if (alias === 'grok') {
+    return new GrokAdapter();
+  }
+
+  if (alias === 'gemini') {
+    return new GeminiAdapter();
+  }
+
   if (alias === 'gmail') {
     return new GmailAdapter();
   }
@@ -290,6 +300,23 @@ function handleKeyDown(event: KeyboardEvent): void {
     event.preventDefault();
     executeCommand('focusMain');
   } else if (ctrlKey && !shiftKey && !altKey && !metaKey && key === 'c') {
+    // Let native copy run when user has an explicit selection (including inside inputs/textareas)
+    const selection = window.getSelection();
+    const hasDomSelection = !!selection && !selection.isCollapsed && selection.toString().length > 0;
+
+    const activeElement = document.activeElement as HTMLElement | null;
+    const isTextInput =
+      activeElement instanceof HTMLInputElement || activeElement instanceof HTMLTextAreaElement;
+    const hasInputSelection =
+      isTextInput &&
+      activeElement.selectionStart !== null &&
+      activeElement.selectionEnd !== null &&
+      activeElement.selectionStart !== activeElement.selectionEnd;
+
+    if (hasDomSelection || hasInputSelection) {
+      return; // preserve native copy for manual selections
+    }
+
     event.preventDefault();
     executeCommand('copySelected');
   } else if (ctrlKey && !shiftKey && !altKey && !metaKey && key === 'a') {
@@ -310,12 +337,7 @@ function handleKeyDown(event: KeyboardEvent): void {
     }
   } else if (ctrlKey && !shiftKey && !altKey && !metaKey && key === 'ArrowUp') {
     event.preventDefault();
-    const currentFocus = document.querySelector('.kity-focus');
-    const sidebar =
-      document.querySelector('nav[aria-label="Chat history"]') ||
-      document.querySelector('nav.flex-col.flex-1') ||
-      document.querySelector('nav');
-    const isInSidebar = currentFocus && sidebar?.contains(currentFocus);
+    const isInSidebar = currentAdapter?.isInSidebar?.() ?? false;
 
     if (isInSidebar) {
       if (!event.repeat) {
@@ -326,12 +348,7 @@ function handleKeyDown(event: KeyboardEvent): void {
     }
   } else if (ctrlKey && !shiftKey && !altKey && !metaKey && key === 'ArrowDown') {
     event.preventDefault();
-    const currentFocus = document.querySelector('.kity-focus');
-    const sidebar =
-      document.querySelector('nav[aria-label="Chat history"]') ||
-      document.querySelector('nav.flex-col.flex-1') ||
-      document.querySelector('nav');
-    const isInSidebar = currentFocus && sidebar?.contains(currentFocus);
+    const isInSidebar = currentAdapter?.isInSidebar?.() ?? false;
 
     if (isInSidebar) {
       if (!event.repeat) {

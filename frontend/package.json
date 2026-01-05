@@ -1,6 +1,6 @@
 {
   "name": "kity-br",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Fast ChatGPT Navigator",
   "scripts": {
     "build": "node esbuild.mjs",

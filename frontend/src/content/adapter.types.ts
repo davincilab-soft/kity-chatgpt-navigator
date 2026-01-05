@@ -28,6 +28,7 @@ export interface IAdapter {
   copySelected?(): void;
   startScroll?(direction: 'up' | 'down'): void;
   stopScroll?(): void;
+  isInSidebar?(): boolean;
 }
 
 export type CommandType =

@@ -11,6 +11,16 @@ export function detectAdapterAlias(url: URL): string {
     return 'claude';
   }
 
+  // Grok (X.AI)
+  if (host === 'grok.x.ai' || host.endsWith('.grok.x.ai') || host === 'x.ai' && url.pathname.includes('grok')) {
+    return 'grok';
+  }
+
+  // Gemini (Google AI)
+  if (host === 'gemini.google.com' || host.endsWith('.gemini.google.com')) {
+    return 'gemini';
+  }
+
   // Gmail
   if (host === 'mail.google.com') {
     return 'gmail';
